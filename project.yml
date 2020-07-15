@@ -1,0 +1,39 @@
+name: Template
+fileGroups:
+  - README.md
+options:
+  developmentLanguage: ja
+  xcodeVersion: 11.5
+config:
+  Debug: debug
+  Release: release
+targets:
+  Template:
+    type: application
+    platform: iOS
+    developmentTarget: 13.0
+    sources:
+      - path: Template
+    scheme: {}
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: 1
+        DEVELOPMENT_TEAM: AV9FQ3YF56
+        PRODUCT_BUNDLE_IDENTIFIER: com.tomoki-sun.app.ios.template
+      configs:
+        Debug:
+          CODE_SIGN_IDENTITY: iPhone Developer
+          INFOPLIST_FILE: Template/Resources/Info/Debug.plist
+        Release:
+          CODE_SIGN_IDENTITY: iPhone Distribution
+          INFOPLIST_FILE: Template/Resources/Info/Release.plist
+  TemplateTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: TemplateTests
+    dependencies:
+      - target: Template
+    scheme:
+      testTargets:
+        - TemplateTests
