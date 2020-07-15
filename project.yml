@@ -1,4 +1,4 @@
-name: Template
+name: MultiCalculator
 fileGroups:
   - README.md
 options:
@@ -8,32 +8,32 @@ config:
   Debug: debug
   Release: release
 targets:
-  Template:
+  MultiCalculator:
     type: application
     platform: iOS
     developmentTarget: 13.0
     sources:
-      - path: Template
+      - path: MultiCalculator
     scheme: {}
     settings:
       base:
         TARGETED_DEVICE_FAMILY: 1
         DEVELOPMENT_TEAM: AV9FQ3YF56
-        PRODUCT_BUNDLE_IDENTIFIER: com.tomoki-sun.app.ios.template
+        PRODUCT_BUNDLE_IDENTIFIER: com.tomoki-sun.app.ios.multi-calculator
       configs:
         Debug:
           CODE_SIGN_IDENTITY: iPhone Developer
-          INFOPLIST_FILE: Template/Resources/Info/Debug.plist
+          INFOPLIST_FILE: MultiCalculator/Resources/Info/Debug.plist
         Release:
           CODE_SIGN_IDENTITY: iPhone Distribution
-          INFOPLIST_FILE: Template/Resources/Info/Release.plist
-  TemplateTests:
+          INFOPLIST_FILE: MultiCalculator/Resources/Info/Release.plist
+  MultiCalculatorTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: TemplateTests
+      - path: MultiCalculatorTests
     dependencies:
-      - target: Template
+      - target: MultiCalculator
     scheme:
       testTargets:
-        - TemplateTests
+        - MultiCalculatorTests
