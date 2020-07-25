@@ -35,5 +35,6 @@ targets:
     dependencies:
       - target: MultiCalculator
     scheme:
+      gatherCoverageData: true
       testTargets:
         - MultiCalculatorTests

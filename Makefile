@@ -1,5 +1,7 @@
 install:
-	bundle install --path vendor/bundle
+	make bundle-install
+	make mint-download
+	make mint-install
 	make gen
 
 mint-download: # Download Mint

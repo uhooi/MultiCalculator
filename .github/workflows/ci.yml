@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  xcode:
+    runs-on: macos-latest
+    name: Xcode 11.5
+    env:
+      DEVELOPER_DIR: "/Applications/Xcode_11.5.app"
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup
+        run: make install
+      - name: test
+        run: bundle exec fastlane test_and_build
+      - name: codecov
+        run: bash <(curl -s https://codecov.io/bash)
+        if: success()
