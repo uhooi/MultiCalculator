@@ -1,6 +1,4 @@
 name: MultiCalculator
-fileGroups:
-  - README.md
 options:
   developmentLanguage: ja
   xcodeVersion: 11.5
