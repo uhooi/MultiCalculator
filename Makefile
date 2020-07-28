@@ -1,4 +1,4 @@
-install:
+install: # Setup
 	make bundle-install
 	make mint-download
 	make mint-install
@@ -17,8 +17,8 @@ gen: # Generate project with XcodeGen
 	rm -r -f *.xcodeproj
 	mint run xcodegen
 
-open:
+open: # Open Xcode
 	open *.xcodeproj
 
-help:
+help: # Help
 	@grep -E '^[a-zA-Z_-]+:.*?# .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":[^#]*? #| #"}; {printf "%-42s%s\n", $$1 $$3, $$2}'

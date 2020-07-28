@@ -24,4 +24,27 @@ platform :ios do
       device: "iPhone 11 Pro"
     )
   end
+
+  lane :all_certificates do
+    ios_identifier = "com.tomoki-sun.app.ios.multi-calculator"
+    macOS_identifier = "com.tomoki-sun.app.macOS.multi-calculator"
+
+    match(
+      type: "adhoc",
+      app_identifier: [ios_identifier, macOS_identifier],
+      readonly: true
+    )
+
+    match(
+      type: "appstore",
+      app_identifier: [ios_identifier, macOS_identifier],
+      readonly: true
+    )
+
+    match(
+      type: "development",
+      app_identifier: [ios_identifier, macOS_identifier],
+      readonly: true
+    )
+  end
 end
