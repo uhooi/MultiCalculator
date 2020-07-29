@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol MultiCalculatorViewable: class {
+    func containerDependenciesDidChange(_ dependencies: [CalculatorViewController.Dependency])
+}
+
 class MultiCalculatorViewController: UIViewController, Injectable {
     
     typealias Dependency = Void
+    
+    var presenter: MultiCalculatorPresentation!
     
     @IBOutlet var containerView: ContainerView!
     
@@ -17,7 +23,7 @@ class MultiCalculatorViewController: UIViewController, Injectable {
         for: CalculatorViewController.self,
         parentViewController: self)
     
-    required init(dependency: Void) {
+    required init(dependency: Dependency) {
         super.init(nibName: nil, bundle: Bundle(for: type(of: self)))
     }
     
@@ -42,12 +48,19 @@ class MultiCalculatorViewController: UIViewController, Injectable {
         )
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
+    
     @objc func orientationDidChanged() {
         let orientation = UIDevice.current.orientation
-        let dependencies: [Void] = orientation.isPortrait
-            ? [()]
-            : [(), (), ()]
-        calculatorContainer.dependencies([])
+        presenter.orientationDidChanged(isPortrait: orientation.isPortrait)
+    }
+}
+
+extension MultiCalculatorViewController: MultiCalculatorViewable {
+    func containerDependenciesDidChange(_ dependencies: [CalculatorViewController.Dependency]) {
         calculatorContainer.dependencies(dependencies)
     }
 }

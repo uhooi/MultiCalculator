@@ -18,7 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = .init(windowScene: windowScene)
         let dependency = RootViewController.Dependency(
-            rootViewController: MultiCalculatorViewController.init(dependency: ()))
+            rootViewController: MultiCalculatorRouter.assembleModules()
+        )
         window?.rootViewController = RootViewController(dependency: dependency)
         window?.makeKeyAndVisible()
         
