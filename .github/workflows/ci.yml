@@ -13,10 +13,28 @@ jobs:
       DEVELOPER_DIR: "/Applications/Xcode_11.5.app"
     steps:
       - uses: actions/checkout@v2
-      - name: setup
-        run: make install
+      
+      # Mintのインストール
+      - name: Install Mint
+        run: brew install mint
+
+      # Mintで管理しているライブラリのキャッシュ復元
+      - name: Cache Mint packages
+        uses: actions/cache@v2
+        with:
+          path: mint
+          key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
+          restore-keys: |
+            ${{ runner.os }}-mint-
+
+      # プロジェクトファイルの生成
+      - name: Generate Xcode project with XcodeGen
+        run: mint run xcodegen xcodegen generate
+
       - name: iOS test
-        run: xcodebuild build-for-testing -project MultiCalculator.xcodeproj -scheme MultiCalculatorTests -destination 'generic/platform=iOS Simulator' ENABLE_TESTABILITY=YES
+        run: |
+          set -o pipefail
+          xcodebuild build-for-testing test-without-building -project MultiCalculator.xcodeproj -scheme MultiCalculatorTests -configuration Debug -sdk iphonesimulator -destination "name=iPhone 8" ENABLE_TESTABILITY=YES | xcpretty -c
       - name: codecov
         run: bash <(curl -s https://codecov.io/bash)
         if: success()

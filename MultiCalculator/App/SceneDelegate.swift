@@ -18,9 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = .init(windowScene: windowScene)
         let dependency = RootViewController.Dependency(
-            rootViewController: CalculatorViewController.init())
+            rootViewController: MultiCalculatorViewController.init(dependency: ()))
         window?.rootViewController = RootViewController(dependency: dependency)
         window?.makeKeyAndVisible()
+        
+        #if targetEnvironment(macCatalyst)
+        window?.windowScene?.titlebar?.titleVisibility = .hidden
+        #endif
     }
 }
-

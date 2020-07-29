@@ -19,8 +19,8 @@ class MCButtonTests: XCTestCase {
     }()
     
     func testTitleFont() {
-        XCTAssertEqual(mcButton.titleLabel?.font.fontName, ".SFNS-Bold")
-        XCTAssertEqual(mcButton.titleLabel?.font.pointSize, 18.0)
+        XCTAssertEqual(mcButton.titleLabel?.font.fontName, ".SFUI-Bold")
+        XCTAssertEqual(mcButton.titleLabel?.font.pointSize, 28.0)
     }
     
     func testTitleColor() {

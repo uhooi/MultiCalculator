@@ -30,8 +30,14 @@ class MCButton: UIButton {
         self.layer.borderColor = UIColor.label.cgColor
         self.layer.borderWidth = 1
         self.setTitleColor(.systemBackground, for: .normal)
-        self.titleLabel?.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 18, weight: .bold))
+        self.titleLabel?.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .bold))
         self.backgroundColor = .darkGray
+    }
+    
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        
+        self.layer.cornerRadius = frame.size.height / 2
     }
     
     override func draw(_ rect: CGRect) {
