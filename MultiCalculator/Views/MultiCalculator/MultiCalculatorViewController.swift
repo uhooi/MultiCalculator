@@ -44,9 +44,15 @@ class MultiCalculatorViewController: UIViewController, Injectable {
     
     @objc func orientationDidChanged() {
         let orientation = UIDevice.current.orientation
-        let dependencies: [Void] = orientation.isPortrait
-            ? [()]
-            : [(), (), ()]
+        // 両方がfalseの場合は更新を行わない
+        if orientation.isPortrait == false && orientation.isLandscape == false {
+            return
+        }
+        var dependencies: [CalculatorViewController.Dependency] = [.init(isPortrait: orientation.isPortrait)]
+        if !orientation.isPortrait {
+            dependencies.append(.init(isPortrait: orientation.isPortrait))
+            dependencies.append(.init(isPortrait: orientation.isPortrait))
+        }
         calculatorContainer.dependencies([])
         calculatorContainer.dependencies(dependencies)
     }

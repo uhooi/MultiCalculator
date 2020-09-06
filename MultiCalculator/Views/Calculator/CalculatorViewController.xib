@@ -16,6 +16,7 @@
                 <outletCollection property="stackViews" destination="9f4-Fq-503" collectionClass="NSMutableArray" id="MUJ-is-cWn"/>
                 <outletCollection property="stackViews" destination="HCo-Al-I42" collectionClass="NSMutableArray" id="s6R-0d-p4C"/>
                 <outletCollection property="stackViews" destination="6dD-0S-ZFL" collectionClass="NSMutableArray" id="iro-Vt-Sy7"/>
+                <outletCollection property="stackViews" destination="Djt-MH-iZR" collectionClass="NSMutableArray" id="16P-AY-IJa"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,15 +24,17 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="637"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCb-zV-weQ">
-                    <rect key="frame" x="20" y="62.666666666666657" width="374" height="82"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="82" id="vXP-cl-pnb"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TNc-3C-c6B">
+                    <rect key="frame" x="20" y="0.0" width="374" height="144.66666666666666"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCb-zV-weQ">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="144.66666666666666"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6dD-0S-ZFL">
                     <rect key="frame" x="20" y="144.66666666666666" width="374" height="472.33333333333337"/>
                     <subviews>
@@ -53,7 +56,7 @@
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="kmv-DB-uWn" secondAttribute="height" multiplier="1:1" id="9CY-Ru-e7Y"/>
                                     </constraints>
-                                    <state key="normal" title="+/-"/>
+                                    <state key="normal" title="±"/>
                                     <connections>
                                         <action selector="tappedNumber:" destination="-1" eventType="touchUpInside" id="so6-I0-MTy"/>
                                     </connections>
@@ -173,7 +176,7 @@
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="HD3-Ty-auC" secondAttribute="height" multiplier="1:1" id="P5j-bm-14Q"/>
                                     </constraints>
-                                    <state key="normal" title="-"/>
+                                    <state key="normal" title="−"/>
                                     <connections>
                                         <action selector="tappedNumber:" destination="-1" eventType="touchUpInside" id="ZiY-VC-yHu"/>
                                     </connections>
@@ -235,37 +238,16 @@
                                 <constraint firstItem="dfw-0c-zr8" firstAttribute="width" secondItem="dfw-0c-zr8" secondAttribute="height" multiplier="1:1" id="dU3-Xs-5ls"/>
                             </constraints>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Djt-MH-iZR">
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Djt-MH-iZR">
                             <rect key="frame" x="0.0" y="394" width="374" height="78.333333333333314"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IN1-r4-CMm" customClass="MCButton" customModule="MultiCalculator" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="177" height="78.333333333333329"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="275.66666666666669" height="78.333333333333329"/>
                                     <state key="normal" title="0"/>
                                     <connections>
                                         <action selector="tappedNumber:" destination="-1" eventType="touchUpInside" id="N2p-oe-ZqQ"/>
                                     </connections>
                                 </button>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bra-X7-kIO">
-                                    <rect key="frame" x="177" y="0.0" width="20" height="78.333333333333329"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="20" id="d1I-0K-H2y"/>
-                                    </constraints>
-                                </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7S-ro-Jto" customClass="MCButton" customModule="MultiCalculator" customModuleProvider="target">
-                                    <rect key="frame" x="197" y="0.0" width="78.666666666666686" height="78.333333333333329"/>
-                                    <state key="normal" title="."/>
-                                    <connections>
-                                        <action selector="tappedNumber:" destination="-1" eventType="touchUpInside" id="f2e-8q-hZq"/>
-                                    </connections>
-                                </button>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mj6-eg-G7b">
-                                    <rect key="frame" x="275.66666666666669" y="0.0" width="20" height="78.333333333333329"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="20" id="90b-Ol-ZlR"/>
-                                    </constraints>
-                                </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWJ-0O-6Im" customClass="MCButton" customModule="MultiCalculator" customModuleProvider="target">
                                     <rect key="frame" x="295.66666666666669" y="0.0" width="78.333333333333314" height="78.333333333333329"/>
                                     <constraints>
@@ -278,7 +260,6 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="w7S-ro-Jto" firstAttribute="width" secondItem="w7S-ro-Jto" secondAttribute="height" multiplier="1:1" id="P3T-7g-gam"/>
                                 <constraint firstItem="IN1-r4-CMm" firstAttribute="height" secondItem="Djt-MH-iZR" secondAttribute="height" id="l9k-ic-eht"/>
                             </constraints>
                         </stackView>
@@ -290,13 +271,14 @@
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="qCb-zV-weQ" firstAttribute="trailing" secondItem="6dD-0S-ZFL" secondAttribute="trailing" id="QX8-1R-yze"/>
+                <constraint firstItem="6dD-0S-ZFL" firstAttribute="top" secondItem="TNc-3C-c6B" secondAttribute="bottom" id="ErI-bA-YPY"/>
+                <constraint firstItem="TNc-3C-c6B" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="GDD-sV-gFW"/>
+                <constraint firstItem="6dD-0S-ZFL" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" constant="-20" id="K4T-zG-zN4"/>
+                <constraint firstItem="TNc-3C-c6B" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="19.999999999999996" id="RcL-mb-4lV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6dD-0S-ZFL" secondAttribute="trailing" priority="750" constant="20" id="b3Q-8j-rHU"/>
-                <constraint firstItem="qCb-zV-weQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" id="dg2-Cu-1eA"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="6dD-0S-ZFL" secondAttribute="bottom" constant="20" id="ecw-0A-Axk"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="TNc-3C-c6B" secondAttribute="trailing" constant="20" id="fKE-gf-nEL"/>
                 <constraint firstItem="6dD-0S-ZFL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="feN-wK-omm"/>
-                <constraint firstItem="6dD-0S-ZFL" firstAttribute="top" secondItem="qCb-zV-weQ" secondAttribute="bottom" id="hnc-0E-AWL"/>
-                <constraint firstItem="qCb-zV-weQ" firstAttribute="leading" secondItem="6dD-0S-ZFL" secondAttribute="leading" id="t0g-uP-aOv"/>
                 <constraint firstItem="6dD-0S-ZFL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" priority="750" constant="20" id="wKn-xV-cxm"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

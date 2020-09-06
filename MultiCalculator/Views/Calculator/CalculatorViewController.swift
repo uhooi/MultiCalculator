@@ -9,33 +9,35 @@ import UIKit
 
 class CalculatorViewController: UIViewController, Injectable {
     
-    typealias Dependency = Void
+    struct Dependency {
+        let isPortrait: Bool
+    }
     
-    var count: Int = 100 {
+    private let dependency: Dependency
+    private var userIsInTheMiddleOfTyping = false
+    var brain = CalculatorBrainService()
+    var displayNumber = "" {
         didSet {
-            resultLabel.text = "\(count)"
+            resultLabel.text = displayNumber
         }
     }
     
     @IBOutlet var resultLabel: UILabel! {
         willSet {
-            newValue.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 68, weight: .light))
+            newValue.font = dependency.isPortrait
+                ? UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 68, weight: .light))
+                : UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 48, weight: .light))
             newValue.textColor = .systemBackground
             newValue.textAlignment = .right
             newValue.adjustsFontSizeToFitWidth = true
             newValue.adjustsFontForContentSizeCategory = true
-            newValue.text = "\(count)"
+            newValue.text = "0"
         }
     }
     @IBOutlet var stackViews: [UIStackView]!
     
-    @IBAction func tappedNumber(_ sender: MCButton) {
-        guard let title = sender.titleLabel?.text else { return }
-        guard let number = Int(title) else { return }
-        count += number
-    }
-    
     required init(dependency: Dependency) {
+        self.dependency = dependency
         super.init(nibName: nil, bundle: Bundle(for: type(of: self)))
     }
     
@@ -49,43 +51,50 @@ class CalculatorViewController: UIViewController, Injectable {
         
         view.backgroundColor = .label
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(orientationDidChanged),
-            name: UIDevice.orientationDidChangeNotification,
-            object: nil
-        )
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        print(#function)
         stackViews.forEach({
-            let buttons = $0.subviews
-                .compactMap { $0 as? MCButton }
-            buttons.forEach({
-                $0.layoutIfNeeded()
-            })
+            $0.spacing = dependency.isPortrait ? 20 : 4
+            $0.subviews
+                .compactMap({ $0 as? MCButton })
+                .forEach({ button in
+                    button.titleLabel?.font = dependency.isPortrait
+                        ? UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 28, weight: .bold))
+                        : UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 14, weight: .bold))
+                })
         })
     }
     
-    @objc func orientationDidChanged() {
-        let orientation = UIDevice.current.orientation
-        print("isLandscape: \(orientation.isLandscape)")
-        print("isPortrait: \(orientation.isPortrait)")
+    @IBAction func tappedNumber(_ sender: MCButton) {
+        guard let symbol = sender.titleLabel?.text else { return }
+        calculator(symbol)
+    }
+    
+    func calculator(_ symbol: String) {
+        if Int(symbol) != nil {
+            touchDigit(symbol)
+        } else {
+            performOperation(symbol)
+        }
+    }
+    
+    private func touchDigit(_ digit: String) {
+        if userIsInTheMiddleOfTyping {
+            displayNumber += digit
+        } else {
+            displayNumber = digit
+            userIsInTheMiddleOfTyping = true
+        }
+    }
+    
+    private func performOperation(_ symbol: String) {
+        if userIsInTheMiddleOfTyping {
+            brain.setOperand(Double(displayNumber)!)
+            userIsInTheMiddleOfTyping = false
+        }
         
-        resultLabel.font = orientation.isPortrait
-            ? UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 68, weight: .light))
-            : UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 48, weight: .light))
+        brain.performOperation(symbol)
         
-        stackViews.forEach({
-            $0.spacing = orientation.isPortrait ? 20 : 4
-            let buttons = $0.subviews as? [MCButton]
-            buttons?.forEach({ button in
-                button.titleLabel?.font = orientation.isPortrait
-                    ? UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 28, weight: .bold))
-                    : UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 14, weight: .bold))
-            })
-        })
+        if let result = brain.result {
+            displayNumber = String(result)
+        }
     }
 }
